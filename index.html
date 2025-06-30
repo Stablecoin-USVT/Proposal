@@ -136,6 +136,16 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
+        .password-input.success {
+            border-color: #10b981 !important;
+            background: #f0fdf4 !important;
+        }
+
+        .password-input.error {
+            border-color: #dc2626 !important;
+            background: #fef2f2 !important;
+        }
+
         .password-submit {
             padding: 16px 32px;
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
@@ -163,6 +173,8 @@
 
         .main-content {
             display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
         .main-content.authenticated {
@@ -1358,6 +1370,7 @@
                     class="password-input" 
                     placeholder="Enter access code"
                     maxlength="20"
+                    autocomplete="off"
                     required
                 >
                 <button type="submit" class="password-submit">Access Website</button>
@@ -2476,7 +2489,7 @@
 
         // Enhanced form handling
         document.addEventListener('DOMContentLoaded', function() {
-            const forms = document.querySelectorAll('form');
+            const forms = document.querySelectorAll('form:not(.password-form)');
             forms.forEach(form => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
@@ -2498,32 +2511,6 @@
                 if (e.target.matches('a[href^="#"]')) {
                     e.preventDefault();
                 }
-            });
-        });
-
-        // Add intersection observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements for animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll('.pillar-card, .timeline-item, .liquidity-card, .compliance-item');
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
             });
         });
     </script>
