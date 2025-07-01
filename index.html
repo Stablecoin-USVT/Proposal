@@ -2044,6 +2044,48 @@
     </footer>
 
     <script>
+        // Password Check Function - THIS WAS MISSING!
+        function checkPassword(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordError = document.getElementById('passwordError');
+            const passwordScreen = document.getElementById('passwordScreen');
+            const mainContent = document.getElementById('mainContent');
+            const enteredPassword = passwordInput.value;
+            
+            // Check if password is correct
+            if (enteredPassword === 'USVT2025') {
+                // Success - show main content
+                passwordInput.classList.add('success');
+                passwordInput.classList.remove('error');
+                passwordError.style.display = 'none';
+                
+                // Add a small delay for visual feedback
+                setTimeout(() => {
+                    passwordScreen.classList.add('hidden');
+                    mainContent.classList.add('authenticated');
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }, 500);
+                
+            } else {
+                // Error - show error message
+                passwordInput.classList.add('error');
+                passwordInput.classList.remove('success');
+                passwordError.style.display = 'block';
+                
+                // Clear the input and focus it
+                passwordInput.value = '';
+                passwordInput.focus();
+                
+                // Remove error styling after 3 seconds
+                setTimeout(() => {
+                    passwordInput.classList.remove('error');
+                    passwordError.style.display = 'none';
+                }, 3000);
+            }
+        }
+
         // Document content database
         const documentDatabase = {
             'strategy-complete': {
@@ -2510,6 +2552,9 @@
                     e.preventDefault();
                 }
             });
+
+            // Initially disable scrolling until password is entered
+            document.body.style.overflow = 'hidden';
         });
     </script>
 </body>
